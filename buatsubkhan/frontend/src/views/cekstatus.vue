@@ -21,7 +21,7 @@
   
   const checkStatus = async () => {
   try {
-    const apiUrl = `http://localhost:3000/api/pendaftaran/status?email=${email.value}`;
+    const apiUrl = `http://localhost:3100/api/pendaftaran/status?email=${email.value}`;
     const response = await fetch(apiUrl);
     const responseData = await response.json();
 

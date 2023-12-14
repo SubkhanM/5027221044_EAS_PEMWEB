@@ -1,6 +1,15 @@
 <template>
   <div class="registration-container">
     <h2>Form Registrasi Lomba</h2>
+
+    <!-- Tambahkan pesan kesuksesan dan kesalahan -->
+    <div class="success-message" v-if="successMessage">
+      {{ successMessage }}
+    </div>
+    <div class="error-message" v-if="errorMessage">
+      {{ errorMessage }}
+    </div>
+
     <form @submit.prevent="submitForm" class="registration-form">
       <div class="form-group">
         <label for="nama">Nama:</label>
@@ -33,6 +42,8 @@ export default {
         asal_sekolah: '',
         tanggal_pendaftaran: '',
       },
+      successMessage: '', // Tambahkan ini
+      errorMessage: '', // Tambahkan ini
     };
   },
   methods: {
@@ -49,8 +60,10 @@ export default {
         });
 
         const responseData = await response.json();
-
         console.log('Data Pendaftaran Berhasil Dikirim:', responseData);
+
+        // Setelah berhasil, atur pesan sukses
+        this.successMessage = 'Pendaftaran Berhasil!';
 
         // Reset form setelah pengiriman
         this.formData = {
@@ -61,6 +74,8 @@ export default {
         };
       } catch (error) {
         console.error('Terjadi kesalahan saat mengirim data:', error);
+        // Setelah kesalahan, atur pesan kesalahan
+        this.errorMessage = 'Terjadi kesalahan saat mengirim data. Silakan coba lagi.';
       }
     },
   },
@@ -109,5 +124,13 @@ button {
 
 button:hover {
   background-color: #45a049;
+}
+
+.success-message {
+  color: green;
+}
+
+.error-message {
+  color: red;
 }
 </style>
